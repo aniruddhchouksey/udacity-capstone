@@ -58,8 +58,7 @@ jobs:
       - deploy:
           name: Push application Docker image
           command: |
-            login="$(aws ecr get-login --region ${AWS_REGION})"
-            ${login}
+            aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_ENDPOINT}
             docker tag app "${ECR_ENDPOINT}/${CIRCLE_BRANCH}/app:${CIRCLE_SHA1}"
             docker push "${ECR_ENDPOINT}/${CIRCLE_BRANCH}/app:${CIRCLE_SHA1}"
   lint:
