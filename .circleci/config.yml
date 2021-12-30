@@ -28,6 +28,11 @@ jobs:
           keys:
             - v1-{{ .Branch }}
       - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache \
+              aws-cli
+      - run:
           name: Load Docker image layer cache
           command: |
             set +o pipefail
@@ -49,12 +54,10 @@ jobs:
       - deploy:
           name: Push application Docker image
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              login="$(aws ecr get-login)"
-              ${login}
-              docker tag app "${ECR_ENDPOINT}/${CIRCLE_BRANCH}/app:${CIRCLE_SHA1}"
-              docker push "${ECR_ENDPOINT}/${CIRCLE_BRANCH}/app:${CIRCLE_SHA1}"
-            fi
+            login="$(aws ecr get-login)"
+            ${login}
+            docker tag app "${ECR_ENDPOINT}/${CIRCLE_BRANCH}/app:${CIRCLE_SHA1}"
+            docker push "${ECR_ENDPOINT}/${CIRCLE_BRANCH}/app:${CIRCLE_SHA1}"
   lint:
     docker:
       - image: python:3.7.3-stretch
