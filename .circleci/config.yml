@@ -32,7 +32,6 @@ jobs:
           command: |
             set +o pipefail
             docker load -i /caches/app.tar | true
-      
       - run:
           name: Build application Docker image
           command: |
@@ -66,3 +65,6 @@ workflows:
   say-hello-workflow:
     jobs:
       - lint
+      - build:
+          requires:
+            - lint
