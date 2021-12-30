@@ -43,9 +43,18 @@ jobs:
             mkdir -p /caches
             docker save -o /caches/app.tar app
       - save_cache:
-          key: v1-{{ .Branch }}-{{ epoch }}
+          key: v1-{{ .Branch }}
           paths:
             - /caches/app.tar
+      - deploy:
+          name: Push application Docker image
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              login="$(aws ecr get-login)"
+              ${login}
+              docker tag app "${ECR_ENDPOINT}/${CIRCLE_BRANCH}/app:${CIRCLE_SHA1}"
+              docker push "${ECR_ENDPOINT}/${CIRCLE_BRANCH}/app:${CIRCLE_SHA1}"
+            fi
   lint:
     docker:
       - image: python:3.7.3-stretch
