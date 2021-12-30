@@ -35,6 +35,7 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
+            cd ./src
             docker build --cache-from=app -t app .
       - run:
           name: Save Docker image layer cache
