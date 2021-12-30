@@ -59,8 +59,8 @@ jobs:
           name: Push application Docker image
           command: |
             aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_ENDPOINT}
-            docker tag app "${ECR_ENDPOINT}/app:${CIRCLE_SHA1}"
-            docker push "${ECR_ENDPOINT}/app:${CIRCLE_SHA1}"
+            docker tag app "${ECR_ENDPOINT}/capstone/app:${CIRCLE_SHA1}"
+            docker push "${ECR_ENDPOINT}/capstone/app:${CIRCLE_SHA1}"
   lint:
     docker:
       - image: python:3.7.3-stretch
