@@ -31,7 +31,11 @@ jobs:
           name: Install dependencies
           command: |
             apk add --no-cache \
-              aws-cli
+              python3 \
+              py3-pip \
+              && pip3 install --upgrade pip \
+              && pip3 install \
+              awscli \
       - run:
           name: Load Docker image layer cache
           command: |
