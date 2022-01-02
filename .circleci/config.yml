@@ -77,7 +77,8 @@ jobs:
               make lint
   # deploy:
   test-cluster:
-    executor: aws-eks/python3
+    docker:
+      - image: python:3.7.3-stretch
     parameters:
       cluster-name:
         description: |
