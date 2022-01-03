@@ -1,0 +1,26 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+  namespace: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: 992617474323.dkr.ecr.us-east-1.amazonaws.com/capstone:0.0
+        name: capstone
+        ports:
+          - containerPort: 80
+        resources: {}
+status: {}
