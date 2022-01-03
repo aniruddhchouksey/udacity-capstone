@@ -131,7 +131,7 @@ jobs:
       - run:
           name: deploy artifacts
           command: |
-            yq e -i '.spec.template.spec.containers[0].image = "$ECR_ENDPOINT/capstone:$CIRCLE_SHA1"' src/deployment.yaml
+            image="$ECR_ENDPOINT/capstone:$CIRCLE_SHA1" yq e -i '.spec.template.spec.containers[0].image = env(image)' src/deployment.yaml
             kubectl apply -f src/ns.yml -f src/deployment.yaml -f src/service.yml
 
 # Invoke jobs via workflows
