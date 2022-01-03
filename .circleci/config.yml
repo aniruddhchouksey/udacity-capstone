@@ -123,7 +123,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            sudo apt install yq -y
+            apt-get install yq -y
       - run:
           name: deploy artifacts
           command: |
