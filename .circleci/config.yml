@@ -145,5 +145,6 @@ workflows:
           requires:
             - build
       - update-deployment:
+          cluster-name: capstone-eks-cluster
           requires:
             - test-cluster
