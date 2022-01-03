@@ -123,8 +123,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY} -O /usr/bin/yq &&\
-            chmod +x /usr/bin/yq
+            sudo apt install yq -y
       - run:
           name: deploy artifacts
           command: |
